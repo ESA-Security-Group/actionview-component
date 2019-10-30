@@ -9,7 +9,7 @@ class ActionView::Base
     def render(options = {}, args = {}, &block)
       if options.respond_to?(:render_in)
         ActiveSupport::Deprecation.warn(
-          "passing component instances to `render` has been deprecated and will be removed in v2.0.0. Use `render MyComponent, foo: :bar` instead."
+          "passing component instances (`render MyComponent.new(foo: :bar)`) has been deprecated and will be removed in v2.0.0. Use `render MyComponent, foo: :bar` instead."
         )
 
         options.render_in(self, &block)
@@ -88,7 +88,7 @@ module ActionView
       # Looks for the source file path of the initialize method of the instance's class.
       # Removes the first part of the path and the extension.
       def virtual_path
-        self.class.source_location.gsub(%r{(.*app/)|(.rb)}, "")
+        self.class.source_location.gsub(%r{(.*app/)|(\.rb)}, "")
       end
 
       class << self
